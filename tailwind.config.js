@@ -4,7 +4,6 @@ const { fontFamily } = require("tailwindcss/defaultTheme");
 module.exports = {
   darkMode: ["class"],
   content: [
-    "./pages/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
@@ -22,6 +21,7 @@ module.exports = {
         inter: ["var(--font-inter)", ...fontFamily.sans],
       },
       colors: {
+        "off-white-2": "var(--color-off-white-2)",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
