@@ -29,7 +29,7 @@ export default function DesktopNavigationBar(props: DesktopNavigationBarProps) {
           </Link>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/about" legacyBehavior passHref>
+          <Link href="#" legacyBehavior passHref>
             <div className={navigationBarClasses.profile}>
               <Avatar className={navigationBarClasses.avatarFallback}>
                 <AvatarImage src="https://unsplash.com/photos/black-pug-with-gray-knit-scarf-Mv9hjnEUHR4" />
