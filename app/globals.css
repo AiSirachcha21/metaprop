@@ -4,7 +4,8 @@
  
 @layer base {
   :root {
-    --color-off-white-2: hsla(60, 8%, 95%, 1);
+    --color-off-white-2: #F4F4F2;
+    --color-text-body: #27272E;
 
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;
@@ -34,7 +35,7 @@
     --input: 0 0% 89.8%;
     --ring: 0 0% 3.9%;
  
-    --radius: 0.5rem;
+    --radius: 1rem;
   }
  
   .dark {
