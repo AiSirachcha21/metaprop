@@ -1,0 +1,36 @@
+
+.container nav {
+  @apply min-h-[5.75rem];
+  @apply bg-off-white-2 max-w-none;
+  @apply justify-between items-center gap-4;
+  @apply px-4; 
+}
+
+.container a {
+  @apply text-base;
+}
+
+.container h1 a{
+  @apply text-xl md:text-2xl font-semibold;
+}
+
+.profile {
+  @apply cursor-pointer;
+  @apply flex items-center gap-4;
+}
+
+.avatarFallback {
+  @apply bg-blue-400;
+  @apply cursor-pointer;
+}
+
+.mobileMenu {
+  @apply rounded-md;
+  @apply px-4 py-2;
+  @apply absolute w-max right-0 top-full z-20;
+  @apply bg-white border border-neutral-100;
+}
+
+.mobileMenuItem {
+  @apply px-2 py-3;
+}
