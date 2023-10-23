@@ -1,6 +1,7 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import HouseCard from "@/components/HouseCard";
 
 export interface Home {
   name: string;
@@ -24,38 +25,18 @@ async function getHomes() {
 export default async function Home() {
   const homes = await getHomes();
 
-  const formatPrice = (price: string) => {
-    const usdCurrencyFormatter = Intl.NumberFormat("en-US", {
-      currency: "USD",
-      style: "currency",
-      maximumFractionDigits: 0,
-    });
-    return usdCurrencyFormatter.format(parseInt(price));
-  };
-
   return (
-    <main className={styles.homeGrid}>
+    <main className={styles.homeGrid} test-id="home-grid">
       {homes.map((home, index) => {
         return (
-          <Card key={index} className={styles.card}>
-            <CardHeader className="object-cover relative aspect-video m-2">
-              <Image
-                src={home.image}
-                alt={home.name}
-                fill
-                className="rounded-sm"
-              />
-            </CardHeader>
-            <CardContent className={styles.cardBody}>
-              <section className={styles.meta}>
-                <h1 className={styles.title}>{home.name}</h1>
-                <span className={styles.subtitle}>{home.location}</span>
-                <span className={styles.price}>{formatPrice(home.price)}</span>
-                <span className={styles.developer}>{home.developer}</span>
-              </section>
-              <section></section>
-            </CardContent>
-          </Card>
+          <HouseCard
+            key={index}
+            imageSrc={home.image}
+            name={home.name}
+            location={home.location}
+            price={home.price}
+            developer={home.developer}
+          />
         );
       })}
     </main>
