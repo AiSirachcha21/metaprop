@@ -16,7 +16,7 @@ type DesktopNavigationBarProps = ComponentPropsWithoutRef<
 
 export default function DesktopNavigationBar(props: DesktopNavigationBarProps) {
   return (
-    <NavigationMenu {...props}>
+    <NavigationMenu {...props} data-testId="desktopNavigationBar">
       <h1>
         <Link href="/" legacyBehavior passHref>
           <NavigationMenuLink>MetaProps</NavigationMenuLink>

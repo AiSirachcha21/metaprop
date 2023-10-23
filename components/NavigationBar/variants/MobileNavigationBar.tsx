@@ -19,7 +19,7 @@ type MobileNavigationBarProps = ComponentPropsWithoutRef<
 
 export default function MobileNavigationBar(props: MobileNavigationBarProps) {
   return (
-    <NavigationMenu {...props}>
+    <NavigationMenu {...props} data-testId="mobileNavigationBar">
       <h1>
         <Link href="/" legacyBehavior passHref>
           <NavigationMenuLink>MetaProps</NavigationMenuLink>
