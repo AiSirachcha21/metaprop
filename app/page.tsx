@@ -1,95 +1,63 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+import Image from "next/image";
+import styles from "./page.module.css";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
-export default function Home() {
+export interface Home {
+  name: string;
+  image: string;
+  price: string;
+  location: string;
+  developer: string;
+}
+
+async function getHomes() {
+  const res = await fetch(new URL(`default/getHouseInfo`, process.env.API_URL));
+
+  if (!res.ok) {
+    throw new Error(res.statusText);
+  }
+
+  const json = await res.json();
+  return json as Home[];
+}
+
+export default async function Home() {
+  const homes = await getHomes();
+
+  const formatPrice = (price: string) => {
+    const usdCurrencyFormatter = Intl.NumberFormat("en-US", {
+      currency: "USD",
+      style: "currency",
+      maximumFractionDigits: 0,
+    });
+    return usdCurrencyFormatter.format(parseInt(price));
+  };
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+    <main className={styles.homeGrid}>
+      {homes.map((home, index) => {
+        return (
+          <Card key={index} className={styles.card}>
+            <CardHeader className="object-cover relative aspect-video m-2">
+              <Image
+                src={home.image}
+                alt={home.name}
+                fill
+                className="rounded-sm"
+              />
+            </CardHeader>
+            <CardContent className={styles.cardBody}>
+              <section className={styles.meta}>
+                <h1 className={styles.title}>{home.name}</h1>
+                <span className={styles.subtitle}>{home.location}</span>
+                <span className={styles.price}>{formatPrice(home.price)}</span>
+                <span className={styles.developer}>{home.developer}</span>
+              </section>
+              <section></section>
+            </CardContent>
+          </Card>
+        );
+      })}
     </main>
-  )
+  );
 }
